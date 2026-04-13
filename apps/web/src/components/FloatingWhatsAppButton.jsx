@@ -4,7 +4,7 @@ import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function FloatingWhatsAppButton() {
-  const whatsappNumber = '5519997913426';
+  const whatsappNumber = '5519997472736';
   const message = 'Olá! Gostaria de saber mais sobre os serviços da ZEOXY.';
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
