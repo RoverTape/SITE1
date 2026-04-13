@@ -28,8 +28,8 @@ const contactInfo = [
   {
     icon: Phone,
     label: 'Telefone',
-    value: '(19) 99791-3426',
-    href: 'tel:+5519997913426',
+    value: '(19) 99747-2736',
+    href: 'tel:+5519997472736',
   },
   {
     icon: MapPin,
