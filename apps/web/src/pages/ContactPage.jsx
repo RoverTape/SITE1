@@ -22,8 +22,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'contato.zeoxy@gmail.com',
-    href: 'mailto:contato.zeoxy@gmail.com',
+    value: 'comercial@zeoxy.com.br',
+    href: 'mailto:comercial@zeoxy.com.br',
   },
   {
     icon: Phone,

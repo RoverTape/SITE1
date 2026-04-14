@@ -56,7 +56,7 @@ function ContactForm() {
         const body = encodeURIComponent(
           `Nome: ${formData.name}\nEmail: ${formData.email}\n\nMensagem:\n${formData.message}`
         );
-        window.open(`mailto:comercial@zeoxy.tech?subject=${subject}&body=${body}`, '_blank');
+        window.open(`mailto:comercial@zeoxy.com.br?subject=${subject}&body=${body}`, '_blank');
       }
 
       toast.success('Mensagem enviada com sucesso! Entraremos em contato em breve.');

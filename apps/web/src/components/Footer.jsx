@@ -62,7 +62,7 @@ function Footer() {
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="break-all">comercial@zeoxy.tech</span>
+                <span className="break-all">comercial@zeoxy.com.br</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
