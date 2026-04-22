@@ -6,18 +6,21 @@ import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
+import { LanguageProvider } from './context/LanguageContext';
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/servicos" element={<ServicesPage />} />
-        <Route path="/contato" element={<ContactPage />} />
-      </Routes>
-      <Toaster position="top-right" />
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/servicos" element={<ServicesPage />} />
+          <Route path="/contato" element={<ContactPage />} />
+        </Routes>
+        <Toaster position="top-right" />
+      </Router>
+    </LanguageProvider>
   );
 }
 

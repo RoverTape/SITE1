@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+apps/web/node_modules/
+
+# Environment variables — NEVER commit secrets
+.env
+.env.local
+.env.*.local
+apps/web/.env
+apps/web/.env.local
+apps/web/.env.*.local
+
+# Build output
+apps/web/dist/
+
+# Vite cache
+apps/web/.vite/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

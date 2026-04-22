@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton.jsx';
+import { useLanguage } from '@/context/LanguageContext';
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -18,34 +19,18 @@ const itemUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.75, ease } },
 };
 
-const contactInfo = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'comercial@zeoxy.com.br',
-    href: 'mailto:comercial@zeoxy.com.br',
-  },
-  {
-    icon: Phone,
-    label: 'Telefone',
-    value: '(19) 99747-2736',
-    href: 'tel:+5519997472736',
-  },
-  {
-    icon: MapPin,
-    label: 'Localização',
-    value: 'São Paulo, SP',
-    href: null,
-  },
-  {
-    icon: Clock,
-    label: 'Horário',
-    value: 'Seg–Sex: 9h às 18h',
-    href: null,
-  },
-];
+const contactIcons = [Mail, Phone, MapPin, Clock];
 
 function ContactPage() {
+  const { t } = useLanguage();
+
+  const contactInfo = [
+    { icon: Mail,    label: t.contact.emailLabel,    value: 'comercial@zeoxy.com.br', href: 'mailto:comercial@zeoxy.com.br' },
+    { icon: Phone,   label: t.contact.phoneLabel,    value: '+55 (19) 99747-2736',    href: 'tel:+5519997472736' },
+    { icon: MapPin,  label: t.contact.locationLabel, value: t.contact.locationValue,   href: null },
+    { icon: Clock,   label: t.contact.hoursLabel,    value: t.contact.hoursValue,      href: null },
+  ];
+
   return (
     <>
       <Helmet>
@@ -65,37 +50,21 @@ function ContactPage() {
           <div className="absolute inset-0 grid-bg opacity-40 z-0" />
           <div
             className="absolute inset-0 z-0 pointer-events-none"
-            style={{
-              background:
-                'radial-gradient(ellipse 60% 50% at 50% 30%, rgba(192,192,192,0.06) 0%, transparent 70%)',
-            }}
+            style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 30%, rgba(192,192,192,0.06) 0%, transparent 70%)' }}
           />
           <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-background to-transparent z-0" />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-            >
-              <motion.p
-                variants={itemUp}
-                className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary/60 mb-5"
-              >
-                Entre em contato
+            <motion.div variants={container} initial="hidden" animate="show">
+              <motion.p variants={itemUp} className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary/60 mb-5">
+                {t.contact.label}
               </motion.p>
-              <motion.h1
-                variants={itemUp}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight mb-6"
-              >
-                Vamos transformar{' '}
-                <span className="animated-gradient-text">sua empresa?</span>
+              <motion.h1 variants={itemUp} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight mb-6">
+                {t.contact.heading}{' '}
+                <span className="animated-gradient-text">{t.contact.headingGradient}</span>
               </motion.h1>
-              <motion.p
-                variants={itemUp}
-                className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-              >
-                Entre em contato com nossa equipe para entender suas necessidades e apresentar as melhores soluções
+              <motion.p variants={itemUp} className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                {t.contact.subtitle}
               </motion.p>
             </motion.div>
           </div>
@@ -104,15 +73,7 @@ function ContactPage() {
         {/* ═══ CONTACT CARDS ═══ */}
         <section className="pb-24 md:pb-32">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            {/* 2×2 grid of info cards */}
-            <motion.div
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: '-60px' }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6"
-            >
+            <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               {contactInfo.map((item) => (
                 <motion.div
                   key={item.label}
@@ -123,14 +84,9 @@ function ContactPage() {
                     <item.icon className="w-5 h-5 text-primary" />
                   </div>
                   <div className="overflow-hidden">
-                    <p className="text-xs font-semibold text-muted-foreground/60 tracking-wider uppercase mb-1">
-                      {item.label}
-                    </p>
+                    <p className="text-xs font-semibold text-muted-foreground/60 tracking-wider uppercase mb-1">{item.label}</p>
                     {item.href ? (
-                      <a
-                        href={item.href}
-                        className="text-sm font-medium text-foreground hover:text-primary transition-colors break-all"
-                      >
+                      <a href={item.href} className="text-sm font-medium text-foreground hover:text-primary transition-colors break-all">
                         {item.value}
                       </a>
                     ) : (
@@ -141,7 +97,6 @@ function ContactPage() {
               ))}
             </motion.div>
 
-            {/* Quick response note */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -149,13 +104,9 @@ function ContactPage() {
               transition={{ duration: 0.75, ease }}
               className="p-7 rounded-2xl border border-primary/20 bg-primary/5 text-center"
             >
-              <h3 className="text-sm font-semibold text-foreground mb-2">Resposta rápida</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-lg mx-auto">
-                Nossa equipe responde todas as mensagens em até 24 horas úteis.
-                Para atendimento imediato, utilize nosso WhatsApp.
-              </p>
+              <h3 className="text-sm font-semibold text-foreground mb-2">{t.contact.quickResponseHeading}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-lg mx-auto">{t.contact.quickResponseText}</p>
             </motion.div>
-
           </div>
         </section>
 

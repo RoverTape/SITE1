@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    cors: true,
   },
   resolve: {
     extensions: ['.jsx', '.js', '.tsx', '.ts', '.json'],

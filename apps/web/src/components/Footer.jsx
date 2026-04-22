@@ -1,23 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="relative bg-card border-t border-border overflow-hidden">
-      {/* Subtle top gradient */}
       <div
         className="absolute top-0 inset-x-0 h-px"
         style={{
-          background:
-            'linear-gradient(90deg, transparent, rgba(192,192,192,0.3), transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(192,192,192,0.3), transparent)',
         }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8 md:pt-16 md:pb-10">
-        {/* Main grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 mb-12">
 
           {/* Brand */}
@@ -28,20 +27,20 @@ function Footer() {
               className="h-7 md:h-8 w-auto mb-5"
             />
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Transformando empresas através da tecnologia e inovação digital.
+              {t.footer.tagline}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
             <h3 className="text-xs font-semibold tracking-[0.18em] uppercase text-foreground/50 mb-5">
-              Links rápidos
+              {t.footer.quickLinks}
             </h3>
             <nav className="flex flex-col gap-3">
               {[
-                { to: '/', label: 'Home' },
-                { to: '/servicos', label: 'Serviços' },
-                { to: '/contato', label: 'Contato' },
+                { to: '/', label: t.nav.home },
+                { to: '/servicos', label: t.nav.services },
+                { to: '/contato', label: t.nav.contact },
               ].map((link) => (
                 <Link
                   key={link.to}
@@ -57,7 +56,7 @@ function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-xs font-semibold tracking-[0.18em] uppercase text-foreground/50 mb-5">
-              Contato
+              {t.footer.contact}
             </h3>
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
@@ -66,7 +65,7 @@ function Footer() {
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                <span>(19) 99747-2736</span>
+                <span>+55 (19) 99747-2736</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
@@ -79,20 +78,20 @@ function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <p className="text-xs text-muted-foreground/60">
-            © {currentYear} ZEOXY. Todos os direitos reservados.
+            © {currentYear} ZEOXY. {t.footer.rights}
           </p>
           <div className="flex gap-6">
             <Link
               to="/contato"
               className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors duration-200"
             >
-              Política de Privacidade
+              {t.footer.privacy}
             </Link>
             <Link
               to="/contato"
               className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors duration-200"
             >
-              Termos de Serviço
+              {t.footer.terms}
             </Link>
           </div>
         </div>

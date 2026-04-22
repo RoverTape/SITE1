@@ -66,8 +66,7 @@ function ContactForm() {
         email: '',
         message: ''
       });
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } catch {
       toast.error('Erro ao enviar mensagem. Por favor, tente novamente.');
     } finally {
       setIsSubmitting(false);

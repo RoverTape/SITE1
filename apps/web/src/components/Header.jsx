@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const navLinks = [
-  { path: '/', label: 'Home' },
-  { path: '/servicos', label: 'Serviços' },
-  { path: '/contato', label: 'Contato' },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { lang, toggleLang, t } = useLanguage();
+  const isHome = location.pathname === '/';
+
+  const navLinks = [
+    { path: '/', label: t.nav.home },
+    { path: '/servicos', label: t.nav.services },
+    { path: '/contato', label: t.nav.contact },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
@@ -26,9 +29,7 @@ function Header() {
 
   return (
     <>
-      {/* ── Floating pill nav ── */}
       <header className="fixed top-0 inset-x-0 z-50 flex justify-center pt-5 px-4 pointer-events-none">
-
         <motion.div
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -46,7 +47,11 @@ function Header() {
             `}
           >
             {/* Logo */}
-            <Link to="/" className="flex items-center flex-shrink-0 pl-1">
+            <Link
+              to="/"
+              className="flex items-center flex-shrink-0 pl-1"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
               <img
                 src="https://horizons-cdn.hostinger.com/7893b7cf-26ca-45d0-b19a-09e753364893/e2c0dff7aa53b5af8dace603d8917542.png"
                 alt="ZEOXY"
@@ -54,7 +59,7 @@ function Header() {
               />
             </Link>
 
-            {/* Desktop nav links — centered */}
+            {/* Desktop nav links */}
             <nav className="hidden md:flex items-center gap-0.5">
               {navLinks.map((link) => (
                 <Link
@@ -78,49 +83,77 @@ function Header() {
               ))}
             </nav>
 
-            {/* CTA button */}
-            <Link
-              to="/contato"
-              className="hidden md:inline-flex items-center px-5 py-2 bg-foreground text-background rounded-xl text-sm font-semibold hover:bg-foreground/85 transition-all duration-200 active:scale-[0.97] flex-shrink-0"
-            >
-              Fale conosco
-            </Link>
+            {/* Right side: lang toggle + CTA */}
+            <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+              {/* Language toggle — only on home */}
+              {isHome && (
+                <button
+                  onClick={toggleLang}
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-border/50 hover:border-border transition-colors duration-200 text-xs font-semibold"
+                  aria-label="Toggle language"
+                >
+                  <span className={lang === 'pt' ? 'text-foreground' : 'text-foreground/35'}>PT</span>
+                  <span className="text-foreground/20">·</span>
+                  <span className={lang === 'en' ? 'text-foreground' : 'text-foreground/35'}>EN</span>
+                </button>
+              )}
+
+              <Link
+                to="/contato"
+                className="px-5 py-2 bg-foreground text-background rounded-xl text-sm font-semibold hover:bg-foreground/85 transition-all duration-200 active:scale-[0.97]"
+              >
+                {t.nav.cta}
+              </Link>
+            </div>
 
             {/* Mobile hamburger */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-foreground/70 hover:text-foreground transition-colors rounded-xl hover:bg-white/5"
-              aria-label="Menu"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {isMenuOpen ? (
-                  <motion.span
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    style={{ display: 'block' }}
-                  >
-                    <X className="w-4 h-4" />
-                  </motion.span>
-                ) : (
-                  <motion.span
-                    key="open"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    style={{ display: 'block' }}
-                  >
-                    <Menu className="w-4 h-4" />
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </button>
+            <div className="md:hidden flex items-center gap-2">
+              {isHome && (
+                <button
+                  onClick={toggleLang}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-border/50 text-xs font-semibold"
+                  aria-label="Toggle language"
+                >
+                  <span className={lang === 'pt' ? 'text-foreground' : 'text-foreground/35'}>PT</span>
+                  <span className="text-foreground/20">·</span>
+                  <span className={lang === 'en' ? 'text-foreground' : 'text-foreground/35'}>EN</span>
+                </button>
+              )}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 text-foreground/70 hover:text-foreground transition-colors rounded-xl hover:bg-white/5"
+                aria-label="Menu"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  {isMenuOpen ? (
+                    <motion.span
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                      style={{ display: 'block' }}
+                    >
+                      <X className="w-4 h-4" />
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="open"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                      style={{ display: 'block' }}
+                    >
+                      <Menu className="w-4 h-4" />
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
           </div>
 
-          {/* Mobile dropdown — attached below the pill */}
+          {/* Mobile dropdown */}
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div
@@ -149,7 +182,7 @@ function Header() {
                     to="/contato"
                     className="mt-1 px-4 py-3 bg-foreground text-background rounded-xl text-sm font-semibold text-center hover:bg-foreground/85 transition-all duration-200 active:scale-[0.98]"
                   >
-                    Fale conosco
+                    {t.nav.cta}
                   </Link>
                 </nav>
               </motion.div>

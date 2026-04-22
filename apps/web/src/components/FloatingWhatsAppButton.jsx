@@ -1,12 +1,12 @@
-
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 
 function FloatingWhatsAppButton() {
+  const { t } = useLanguage();
   const whatsappNumber = '5519997472736';
-  const message = 'Olá! Gostaria de saber mais sobre os serviços da ZEOXY.';
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(t.whatsapp.message)}`;
 
   return (
     <motion.a
@@ -19,7 +19,7 @@ function FloatingWhatsAppButton() {
       transition={{ delay: 1, duration: 0.3 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      aria-label="Fale conosco no WhatsApp"
+      aria-label={t.whatsapp.ariaLabel}
     >
       <MessageCircle className="w-6 h-6 md:w-7 md:h-7" />
     </motion.a>
